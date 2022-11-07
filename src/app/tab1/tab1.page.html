@@ -1,17 +1,130 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      Welcome User
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-slides pager #mySlider (ionSlideTouchEnd)="slideChanged(mySlider)" (ionSlideDidChange)="SlideChanges(mySlider)" [options]="sliderOpts">
+    <ion-slide>
+      <div class="slide">
+        <img
+          src="https://c8.alamy.com/comp/2BTNK0J/earthquake-disaster-minimal-infographic-banner-vector-2BTNK0J.jpg" />
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <div class="slide">
+        <img src="https://images.moneycontrol.com/static-mcnews/2021/06/Bank-representational-shutterstock.jpg?impolicy=website&width=1300&height=621" />
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <div class="slide">
+        <img src="https://ceblog.s3.amazonaws.com/wp-content/uploads/2012/05/20172622/ce-travel.jpg" />
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <div class="slide">
+        <img src="https://img.freepik.com/free-photo/top-view-electric-cars-parking-lot_23-2148972403.jpg?w=1060&t=st=1667637072~exp=1667637672~hmac=c06b53c3020d042ad948b47aebd84ca302076b94fa539033218f662586e9bfa3" />
+      </div>
+    </ion-slide>
+  </ion-slides>
+
+
+  <ion-card *ngIf="sliderIndex===0">
+    <ion-card-header>
+      <ion-card-title>Earthquake Details</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-text>
+        <h4> Region: {{earthquake.region}}</h4>
+        <p> Mag: {{earthquake.mag}}</p>
+      </ion-text>
+
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-card *ngIf="sliderIndex===1">
+    <ion-card-header>
+      <ion-card-title>Bank Details</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+
+      <ion-item *ngFor="let bank of banks">
+        <ion-label>
+          <h1>{{bank.bank_info_name}}</h1>
+          <p>
+            <ion-icon name="call" slot="start"></ion-icon>
+            {{bank.pa_hotline_tel}}
+          </p>
+        </ion-label>
+      </ion-item>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="sliderIndex===2">
+    <ion-card-header>
+      <ion-card-title>Route List</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item *ngFor="let route of routes">
+        <ion-label>
+          <h1>{{route.routeName_e}}</h1>
+          <p> {{route.routeNo}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="sliderIndex===3">
+    <ion-card-header>
+      <ion-card-title>Car Park List</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+
+
+      <ion-accordion-group>
+        
+          <ion-accordion *ngFor="let park of carParks" value="axx{{park.id}}">
+            <ion-item slot="header" color="light">
+              <ion-label> {{ park.name.en}} <ion-button size="small" color="success">{{park.openingStatus}}</ion-button>
+              </ion-label>
+            </ion-item>
+            <div class="ion-padding" slot="content">
+              <ion-text> <p>
+                Address: {{ park.address.en}}
+              </p>
+              <p>
+                District: {{ park.district.en}}
+              </p>
+              <p>
+                Contact No: {{ park.contactNo}}
+              </p>
+              <p>
+                Address: {{ park.address.en}}
+              </p>
+             
+            
+            
+            </ion-text>
+            </div>
+          </ion-accordion>
+
+
+      </ion-accordion-group>
+
+    </ion-card-content>
+  </ion-card>
+
+
+
 </ion-content>
